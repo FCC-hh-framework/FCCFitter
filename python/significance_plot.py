@@ -296,6 +296,7 @@ if __name__=="__main__":
     #
     elif 'SSM'    in namesList and "TC2" in namesList : the_ana='ttTC2SSM'
     elif 'TC2'    in namesList                        : the_ana='ttTC2'
+    elif 'nominal' in namesList                       : the_ana='ttTC2'
     elif 'tt'     in namesList                        : the_ana='ttTC2'
     elif 'SSM'    in namesList                        : the_ana='ttSSM'
     elif 'ee'     in namesList                        : the_ana='ee'

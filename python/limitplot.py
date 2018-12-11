@@ -94,6 +94,9 @@ if __name__=="__main__":
     parser.add_option('--smeart5', dest='files_smeart5', type=str, default='')
     parser.add_option('-s', '--signal', dest='signal', type=str, default='')
     parser.add_option('-m', '--models', dest='models', type=str, default='')
+    parser.add_option('--degrade1', dest='files_degrade1', type=str, default='')
+    parser.add_option('--degrade2', dest='files_degrade2', type=str, default='')
+    parser.add_option('--degrade3', dest='files_degrade3', type=str, default='')
 
     ops, args = parser.parse_args()
     args = split_comma_args(args)
@@ -137,6 +140,23 @@ if __name__=="__main__":
         files_smeart5=glob.glob(ops.files_smeart5)
         masses_smeart5=getMasses(files_smeart5)
 
+    files_degrade1=[]
+    masses_degrade1=[]
+    if ops.files_degrade1!='':
+        files_degrade1=glob.glob(ops.files_degrade1)
+        masses_degrade1=getMasses(files_degrade1)
+
+    files_degrade2=[]
+    masses_degrade2=[]
+    if ops.files_degrade2!='':
+        files_degrade2=glob.glob(ops.files_degrade2)
+        masses_degrade2=getMasses(files_degrade2)
+
+    files_degrade3=[]
+    masses_degrade3=[]
+    if ops.files_degrade3!='':
+        files_degrade3=glob.glob(ops.files_degrade3)
+        masses_degrade3=getMasses(files_degrade3)
 
     signal = ops.signal
     print 'NOM=============================================='
@@ -170,17 +190,33 @@ if __name__=="__main__":
         print 'different length for smeart2, exit'
         sys.exit(2)
 
+    if len(masses_degrade1)!=len(files_degrade1):
+        print 'different length for degrade1, exit'
+        sys.exit(2)
+
+    if len(masses_degrade2)!=len(files_degrade2):
+        print 'different length for degrade2, exit'
+        sys.exit(2)
+
+    if len(masses_degrade3)!=len(files_degrade3):
+        print 'different length for degrade3, exit'
+        sys.exit(2)
+
     if len(masses_nom)>0:masses_nom, files_nom = (list(t) for t in zip(*sorted(zip(masses_nom, files_nom))))
     if len(masses_cms)>0: masses_cms, files_cms = (list(t) for t in zip(*sorted(zip(masses_cms, files_cms))))
     if len(masses_smeart2)>0: masses_smeart2, files_smeart2 = (list(t) for t in zip(*sorted(zip(masses_smeart2, files_smeart2))))
     if len(masses_smeart3)>0: masses_smeart3, files_smeart3 = (list(t) for t in zip(*sorted(zip(masses_smeart3, files_smeart3))))
     if len(masses_smeart4)>0: masses_smeart4, files_smeart4 = (list(t) for t in zip(*sorted(zip(masses_smeart4, files_smeart4))))
     if len(masses_smeart5)>0: masses_smeart5, files_smeart5 = (list(t) for t in zip(*sorted(zip(masses_smeart5, files_smeart5))))
+    if len(masses_degrade1)>0: masses_degrade1, files_degrade1 = (list(t) for t in zip(*sorted(zip(masses_degrade1, files_degrade1))))
+    if len(masses_degrade2)>0: masses_degrade2, files_degrade2 = (list(t) for t in zip(*sorted(zip(masses_degrade2, files_degrade2))))
+    if len(masses_degrade3)>0: masses_degrade3, files_degrade3 = (list(t) for t in zip(*sorted(zip(masses_degrade3, files_degrade3))))
 
 
     # dav hack
     do_SSM=False
     if signal=="p8_pp_Zprime_VALUETeV_ttbar": do_SSM=True
+    if len(masses_degrade1)>0: do_SSM=False
  
     XStheo_SSM = array( 'd' )
     if ops.name.find("fcc")>=0:
@@ -228,7 +264,6 @@ if __name__=="__main__":
 
 
     gmed  = r.TGraph(nmass, masses_array, ExpMed)
-    print 'XStheo  ',XStheo
     gtheo = r.TGraph(nmass, masses_array, XStheo)
     gtheo_SSM = r.TGraph(nmass, masses_array, XStheo_SSM)
 
@@ -245,8 +280,8 @@ if __name__=="__main__":
         proc = '#sigma(pp #rightarrow LQ)*BR [pb]'
 
     # style requests for Yellow Report
-    for_YR=True
-    #for_YR=False
+    #for_YR=True
+    for_YR=False
     if for_YR==True : 
       if ops.name.find("ww")>=0 :
         proc = '#sigma(pp #rightarrow G_{RS}/G*_{RS} #rightarrow WW) [pb]'
@@ -296,7 +331,7 @@ if __name__=="__main__":
     gmed.Draw("ACP")
     g2s.Draw("3")
     g1s.Draw("3")
-    gtheo.Draw("L")
+    if len(masses_degrade1)==0: gtheo.Draw("L")
     if do_SSM==True: gtheo_SSM.Draw("L")
     gmed.Draw("L")
 
@@ -415,6 +450,72 @@ if __name__=="__main__":
         gmed_smeart5.SetLineWidth(3)
         gmed_smeart5.Draw("L")
 
+#################################################
+######degrade1
+#################################################
+    XS=getXS(masses_degrade1, signal, ops.name)
+    if len(masses_degrade1)>0:
+        nmass=len(files_degrade1)
+
+        ExpMed = array( 'd' )
+        masses_array = array( 'd' )
+        for i in xrange(nmass):
+            rfile = r.TFile.Open(files_degrade1[i])
+            histo=rfile.Get('limit')
+            ExpMed.append(histo.GetBinContent(2)*XS[i])
+            masses_array.append(masses_nom[i])
+
+        gmed_degrade1  = r.TGraph(nmass, masses_array, ExpMed)
+        gmed_degrade1.SetName("exp_median")
+        gmed_degrade1.SetLineColor(r.kViolet)
+        gmed_degrade1.SetLineStyle(3)
+        gmed_degrade1.SetLineWidth(3)
+        gmed_degrade1.Draw("L")
+
+#################################################
+######degrade2
+#################################################
+    XS=getXS(masses_degrade2, signal, ops.name)
+    if len(masses_degrade2)>0:
+        nmass=len(files_degrade2)
+
+        ExpMed = array( 'd' )
+        masses_array = array( 'd' )
+        for i in xrange(nmass):
+            rfile = r.TFile.Open(files_degrade2[i])
+            histo=rfile.Get('limit')
+            ExpMed.append(histo.GetBinContent(2)*XS[i])
+            masses_array.append(masses_nom[i])
+
+        gmed_degrade2  = r.TGraph(nmass, masses_array, ExpMed)
+        gmed_degrade2.SetName("exp_median")
+        gmed_degrade2.SetLineColor(r.kBlue)
+        gmed_degrade2.SetLineStyle(3)
+        gmed_degrade2.SetLineWidth(3)
+        gmed_degrade2.Draw("L")
+
+#################################################
+######degrade3
+#################################################
+    XS=getXS(masses_degrade3, signal, ops.name)
+    if len(masses_degrade3)>0:
+        nmass=len(files_degrade3)
+
+        ExpMed = array( 'd' )
+        masses_array = array( 'd' )
+        for i in xrange(nmass):
+            rfile = r.TFile.Open(files_degrade3[i])
+            histo=rfile.Get('limit')
+            ExpMed.append(histo.GetBinContent(2)*XS[i])
+            masses_array.append(masses_nom[i])
+
+        gmed_degrade3  = r.TGraph(nmass, masses_array, ExpMed)
+        gmed_degrade3.SetName("exp_median")
+        gmed_degrade3.SetLineColor(r.kRed)
+        gmed_degrade3.SetLineStyle(3)
+        gmed_degrade3.SetLineWidth(3)
+        gmed_degrade3.Draw("L")
+
     lg = None
     if len(models)>1 : lg = r.TLegend(0.58,0.5,0.90,0.88)
     else:lg = r.TLegend(0.58,0.65,0.90,0.88)
@@ -439,7 +540,7 @@ if __name__=="__main__":
     if signal=="mgp8_pp_LQ_mumu_5f_MLQ_VALUETeV": sig_found=False
     if do_SSM==True: sig_found=False
     if sig_found==True :
-      lg.AddEntry(gtheo,theoname,"L")
+      if len(masses_degrade1)==0: lg.AddEntry(gtheo,theoname,"L")
     else :
       if signal=="mgp8_pp_Zprime_mumu_5f_Mzp_VALUETeV" : 
         lg.AddEntry(gtheo,"Z^{\prime} (1710.06363)","L")
@@ -510,6 +611,9 @@ if __name__=="__main__":
     if len(masses_smeart3)>0: lg.AddEntry(gmed_smeart3, "reso x3", "L")
     if len(masses_smeart4)>0: lg.AddEntry(gmed_smeart4, "reso x4", "L")
     if len(masses_smeart5)>0: lg.AddEntry(gmed_smeart5, "reso x5", "L")
+    if len(masses_degrade1)>0: lg.AddEntry(gmed_degrade1, "scenario 1", "L")
+    if len(masses_degrade2)>0: lg.AddEntry(gmed_degrade2, "scenario 2", "L")
+    if len(masses_degrade3)>0: lg.AddEntry(gmed_degrade3, "scenario 3", "L")
 
     lg.Draw()
 
