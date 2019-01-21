@@ -4,6 +4,9 @@
 
 import ROOT as r
 
+old_root=False
+#old_root=True
+
 raw_database=[]
 #                           ana string 15 ab-1               / [disc, lim ]/ [disc, lim ] / 1=use the ana
 #                                                                HL-LHC       HE-LHC
@@ -74,24 +77,28 @@ my_hist[1].SetBarWidth(0.8)
 my_hist[1].SetLineColorAlpha(color[1],0.)
 my_hist[1].SetFillColorAlpha(color[1],0.9)
 my_hist[1].SetMarkerColorAlpha(color[1],0.)
-#my_hist[2].SetLineColorAlpha(color[2],0.)
-#my_hist[2].SetFillColorAlpha(color[2],0.7)
-#my_hist[2].SetMarkerColorAlpha(color[2],0.)
-#my_hist[2].SetFillStyle(3465)
-#my_hist[3].SetLineColorAlpha(color[3],0.)
-#my_hist[3].SetFillColorAlpha(color[3],0.7)
-#my_hist[3].SetMarkerColorAlpha(color[3],0.)
-#my_hist[3].SetFillStyle(3351)
-my_hist[2].SetBarWidth(0.7)
-my_hist[2].SetFillStyle(0)
-my_hist[2].SetLineWidth(3)
-my_hist[2].SetLineColor(color[2])
-my_hist[2].SetLineStyle(r.kDashed)
-my_hist[3].SetBarWidth(0.6)
-my_hist[3].SetFillStyle(0)
-my_hist[3].SetLineWidth(3)
-my_hist[3].SetLineColor(color[3])
-my_hist[3].SetLineStyle(r.kDashed)
+if old_root==True :
+  my_hist[2].SetBarWidth(0.7)
+  my_hist[2].SetLineColorAlpha(color[2],0.)
+  my_hist[2].SetFillColorAlpha(color[2],0.7)
+  my_hist[2].SetMarkerColorAlpha(color[2],0.)
+  my_hist[2].SetFillStyle(3465)
+  my_hist[3].SetBarWidth(0.6)
+  my_hist[3].SetLineColorAlpha(color[3],0.)
+  my_hist[3].SetFillColorAlpha(color[3],0.7)
+  my_hist[3].SetMarkerColorAlpha(color[3],0.)
+  my_hist[3].SetFillStyle(3351)
+else :
+  my_hist[2].SetBarWidth(0.7)
+  my_hist[2].SetFillStyle(0)
+  my_hist[2].SetLineWidth(3)
+  my_hist[2].SetLineColor(color[2])
+  my_hist[2].SetLineStyle(r.kDashed)
+  my_hist[3].SetBarWidth(0.6)
+  my_hist[3].SetFillStyle(0)
+  my_hist[3].SetLineWidth(3)
+  my_hist[3].SetLineColor(color[3])
+  my_hist[3].SetLineStyle(r.kDashed)
 
 canvas = r.TCanvas("test", "test", 600, 600)
 canvas.SetTicks(1,1)
@@ -155,6 +162,7 @@ Text = r.TLatex()
 Text.SetNDC()
 
 leftText = "95% CL Limit (solid), 5 #sigma Discovery (dash)"
+if old_root==True : leftText = "95% CL Limit (solid), 5 #sigma Discovery (hatching)"
 Text.SetTextAlign(31);
 Text.SetTextSize(0.04)
 Text.DrawLatex(0.97, 0.92, '#it{' + leftText +'}')
