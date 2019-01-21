@@ -1,3 +1,7 @@
+# use root versio from 18/01/2019 to have dashed HBAR draw options:
+# https://root-forum.cern.ch/t/draw-y-axis-histograms-hbar-option-not-satisfying/32307/15
+# -> done on David's local machine for the moment
+
 import ROOT as r
 
 raw_database=[]
@@ -31,14 +35,11 @@ for i in raw_database:
   if i[3]==1 : database.append([i[0], [i[1][1], i[1][0]], [i[2][1], i[2][0]]])
 
 nAna=len(database)
-nbins = (2*nAna)
 my_hist=[]
-my_hist.append( r.TH1D("limit_HL", "limit_HE", nbins,0.,nbins)) # limit HE
-my_hist.append( r.TH1D("limit_HE", "limit_HL", nbins,0.,nbins)) # limit HL
-my_hist.append( r.TH1D("disco_HL", "disco_HE", nbins,0.,nbins)) # disco HE
-my_hist.append( r.TH1D("disco_HE", "disco_HL", nbins,0.,nbins)) # disco HL
-
-nMax=len(my_hist)-1
+my_hist.append( r.TH1F("limit_HL", "limit_HE", nAna,0.,nAna)) # limit HE
+my_hist.append( r.TH1F("limit_HE", "limit_HL", nAna,0.,nAna)) # limit HL
+my_hist.append( r.TH1F("disco_HL", "disco_HE", nAna,0.,nAna)) # disco HE
+my_hist.append( r.TH1F("disco_HE", "disco_HL", nAna,0.,nAna)) # disco HL
 
 #color  = [r.kYellow-7, r.kRed+1, r.kGreen+3, r.kBlue+1]
 #color  = [r.kAzure-9, r.kBlue+1, r.kGreen+3, r.kBlack]
@@ -55,33 +56,42 @@ for i in range(nAna): val_HL.append(database[i][1])
 val_HE   = []
 for i in range(nAna): val_HE.append(database[i][2])
 
-count_ana = 0
-for i_bin in xrange( 1, nbins+1 ):
-  if i_bin%2==0: continue
+#count_ana = 0
+for i_bin in range(nAna):
+  my_hist[0].SetBinContent(i_bin+1, val_HE[i_bin][0])
+  my_hist[1].SetBinContent(i_bin+1, val_HL[i_bin][0])
+  my_hist[2].SetBinContent(i_bin+1, val_HE[i_bin][1])
+  my_hist[3].SetBinContent(i_bin+1, val_HL[i_bin][1])
   #
-  my_hist[0].SetBinContent(i_bin, val_HE[count_ana][0])
-  my_hist[1].SetBinContent(i_bin, val_HL[count_ana][0])
-  my_hist[2].SetBinContent(i_bin, val_HE[count_ana][1])
-  my_hist[3].SetBinContent(i_bin, val_HL[count_ana][1])
-  #
-  str_proc = '#scale[1.02]{#font[22]{'+process[count_ana]+'}}'
-  my_hist[0].GetXaxis().SetBinLabel(i_bin,str_proc)
-  count_ana+=1
+  str_proc = '#scale[1.02]{#font[22]{'+process[i_bin]+'}}'
+  my_hist[0].GetXaxis().SetBinLabel(i_bin+1,str_proc)
 
+my_hist[0].SetBarWidth(0.8)
 my_hist[0].SetLineColorAlpha(color[0],0.)
 my_hist[0].SetFillColorAlpha(color[0],0.8)
 my_hist[0].SetMarkerColorAlpha(color[0],0.)
+my_hist[1].SetBarWidth(0.8)
 my_hist[1].SetLineColorAlpha(color[1],0.)
 my_hist[1].SetFillColorAlpha(color[1],0.9)
 my_hist[1].SetMarkerColorAlpha(color[1],0.)
-my_hist[2].SetLineColorAlpha(color[2],0.)
-my_hist[2].SetFillColorAlpha(color[2],0.7)
-my_hist[2].SetMarkerColorAlpha(color[2],0.)
-my_hist[2].SetFillStyle(3465)
-my_hist[3].SetLineColorAlpha(color[3],0.)
-my_hist[3].SetFillColorAlpha(color[3],0.7)
-my_hist[3].SetMarkerColorAlpha(color[3],0.)
-my_hist[3].SetFillStyle(3351)
+#my_hist[2].SetLineColorAlpha(color[2],0.)
+#my_hist[2].SetFillColorAlpha(color[2],0.7)
+#my_hist[2].SetMarkerColorAlpha(color[2],0.)
+#my_hist[2].SetFillStyle(3465)
+#my_hist[3].SetLineColorAlpha(color[3],0.)
+#my_hist[3].SetFillColorAlpha(color[3],0.7)
+#my_hist[3].SetMarkerColorAlpha(color[3],0.)
+#my_hist[3].SetFillStyle(3351)
+my_hist[2].SetBarWidth(0.7)
+my_hist[2].SetFillStyle(0)
+my_hist[2].SetLineWidth(3)
+my_hist[2].SetLineColor(color[2])
+my_hist[2].SetLineStyle(r.kDashed)
+my_hist[3].SetBarWidth(0.6)
+my_hist[3].SetFillStyle(0)
+my_hist[3].SetLineWidth(3)
+my_hist[3].SetLineColor(color[3])
+my_hist[3].SetLineStyle(r.kDashed)
 
 canvas = r.TCanvas("test", "test", 600, 600)
 canvas.SetTicks(1,1)
@@ -129,10 +139,10 @@ my_hist[0].GetYaxis().SetTitle("Mass scale [TeV]")
 my_hist[0].GetXaxis().SetLabelSize(0.045)
 my_hist[0].GetXaxis().SetTickLength(0.)
 
-my_hist[0].Draw("hbar")
-my_hist[1].Draw("hbarsame")
-my_hist[2].Draw("hbarsame")
-my_hist[3].Draw("hbarsame")
+my_hist[0].Draw("HBAR")
+my_hist[1].Draw("HBARsame")
+my_hist[2].Draw("HBARsame")
+my_hist[3].Draw("HBARsame")
 
 leg.AddEntry(my_hist[0],legend[0])
 leg.AddEntry(my_hist[1],legend[1])
@@ -144,7 +154,7 @@ leg2.Draw("same")
 Text = r.TLatex()
 Text.SetNDC()
 
-leftText = "95% CL limit (solid), 5 #sigma Discovery (Hatches)"
+leftText = "95% CL Limit (solid), 5 #sigma Discovery (dash)"
 Text.SetTextAlign(31);
 Text.SetTextSize(0.04)
 Text.DrawLatex(0.97, 0.92, '#it{' + leftText +'}')
@@ -155,6 +165,5 @@ canvas.GetFrame().SetBorderSize( 12 )
 canvas.Update()
 canvas.Modified()
 
-extra="_onlyHELHC_15"
-canvas.Print("summaryDisco"+extra+".pdf")
+canvas.Print("summaryLimDisco_HL_HELHC.pdf")
 
