@@ -67,7 +67,7 @@ raw_database.append([title, [ 1.6,  3.2, "5.1.1"], [-1. , -1. , "empty"], 16, 0.
 title="Heavy #nu m_{E}"
 raw_database.append([title, [ 1.8,  3.8, "5.1.1"], [-1. , -1. , "empty"], 17, 0.5])
 title="Maj #nu"+arrow+"llq#bar{q'}"
-raw_database.append([title, [ 7.3,  8. , "5.1.3"], [11.5, 12.5, "5.1.3"], 15, 0.5])
+raw_database.append([title, [ 7.3,  8. , "5.1.3"], [11.5, 12.5, "5.1.3"], 15, 0.5]) # Lambda=M(N_e) or M(N_mu)
 #spin 0
 title="H^{++}H^{--}"+arrow+"#tau_{h}l^{#pm}l^{#mp}l^{#mp}"+space+"#scale[0.65]{(NH)}"
 raw_database.append([title, [ -1. ,0.66, "5.1.5"], [-1. , 1.38, "5.1.3"], 22, 0. ])
