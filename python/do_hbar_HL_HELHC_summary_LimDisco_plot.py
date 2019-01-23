@@ -66,7 +66,7 @@ title="Heavy #nu m_{N}"
 raw_database.append([title, [ 1.6,  3.2, "5.1.1"], [-1. , -1. , "empty"], 16, 0.5])
 title="Heavy #nu m_{E}"
 raw_database.append([title, [ 1.8,  3.8, "5.1.1"], [-1. , -1. , "empty"], 17, 0.5])
-title="Maj #nu"+arrow+"llq#bar{q'}"
+title="Majorana #nu"+arrow+"llq#bar{q'}"
 raw_database.append([title, [ 7.3,  8. , "5.1.3"], [11.5, 12.5, "5.1.3"], 15, 0.5]) # Lambda=M(N_e) or M(N_mu)
 #spin 0
 title="H^{++}H^{--}"+arrow+"#tau_{h}l^{#pm}l^{#mp}l^{#mp}"+space+"#scale[0.65]{(NH)}"
@@ -216,6 +216,13 @@ my_hist[1].Draw("HBARsame")
 my_hist[2].Draw("HBARsame")
 my_hist[3].Draw("HBARsame")
 
+leg.AddEntry(my_hist[0],legend[0])
+leg.AddEntry(my_hist[1],legend[1])
+leg2.AddEntry(my_hist[2],legend[0])
+leg2.AddEntry(my_hist[3],legend[1])
+leg.Draw("same")
+leg2.Draw("same")
+
 max_factor=1.1
 if show_section==True: max_factor=1.5
 line2  = r.TLine( -100., n0+n05+n1+n2,  the_max*max_factor, n0+n05+n1+n2  )
@@ -226,13 +233,6 @@ line2.Draw("same")
 line1.Draw("same")
 line05.Draw("same")
 line0.Draw("same")
-
-leg.AddEntry(my_hist[0],legend[0])
-leg.AddEntry(my_hist[1],legend[1])
-leg2.AddEntry(my_hist[2],legend[0])
-leg2.AddEntry(my_hist[3],legend[1])
-leg.Draw("same")
-leg2.Draw("same")
 
 Text = r.TLatex()
 Text.SetNDC(False)
