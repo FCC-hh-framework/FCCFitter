@@ -18,9 +18,9 @@ show_section=True
 old_root=False
 #old_root=True
 
-space="#scale[0.4]{ }"
-arrow=space+"#scale[0.7]{#rightarrow}"+space
-emu="#scale[0.9]{(l=e,#mu)}"
+arrow="\\rightarrow"
+l="\\ell"
+emu="("+l+"=e,\\mu)"
 #
 raw_database=[]
 #                    ana  / [disc, lim , sec    ]/ [disc, lim , sec    ]/ order / spin
@@ -33,51 +33,54 @@ raw_database.append([title, [-1. , 2.15, "6.1.1"], [-1. , -1. , "empty"],  1, 2.
 raw_database.append([title, [-1. , 2.95, "6.1.1"], [-1. , -1. , "empty"], -1, 2. ]) # ATLAS k/M=1 other BG scaling (6.1.1)
 raw_database.append([title, [ 2. , -1. , "6.1.1"], [-1. , -1. , "empty"], -1, 2. ]) # CMS k/M=0.5, 2.6 sigma (6.1.2)
 #spin 1
-title="W\'_{SSM}"+arrow+"l#nu"
+title="W_{SSM}^\\prime"+arrow+l+"\\nu"
 raw_database.append([title, [ 7.7,  7.9, "6.2.6"], [-1. , -1. , "empty"], 12, 1. ]) # ATLAS (6.2.6)
-title="W\'_{SSM}"+arrow+"#tau#nu      "
+title="W_{SSM}^\\prime"+arrow+"\\tau\\nu      "
 raw_database.append([title, [ 6.4,  7. , "6.2.7"], [-1. , -1. , "empty"], 11, 1. ]) # CMS (6.2.7)
-title="W\'_{R}"+arrow+"t#bar{b}"+arrow+"b#bar{b}l#nu"
+title="W_{R}^\\prime"+arrow+" t\\wwbar{b}"+arrow+" b\\wwbar{b}"+l+"\\nu"
 raw_database.append([title, [ 4.3,  4.9, "6.2.6"], [-1. , -1. , "empty"], 13, 1. ]) # ATLAS (6.2.6)
-title="Z\'_{SSM}"+arrow+"#tau^{+}#tau^{-}"
+title="Z_{SSM}^\\prime"+arrow+"\\tau^{+}\\tau^{-}"
 raw_database.append([title, [-1. , -1. , "empty"], [ 6.5,  6.5, "6.2.4"], 10, 1. ]) # HE (6.2.4)
-title="Z\'_{f.a.}"+arrow+"#mu^{+}#mu^{-}"
+title="Z_{f.a.}^\\prime"+arrow+"\\mu^{+}\\mu^{-}"
 raw_database.append([title, [-1  , -1. , "empty"], [ 1. ,  4. , "empty"], -1, 1. ]) # HE f.a. = 1710.06363
-title="Z\'_{SSM}"+arrow+"l^{+}l^{-}"
+title="Z_{SSM}^\\prime"+arrow+l+"^{+}"+l+"^{-}"
 raw_database.append([title, [ 6.4, 6.5 , "6.2.5"], [13. , 12.5, "6.2.4"],  9, 1. ]) # ATLAS (6.2.5), HE (6.2.4)
-title="Z\'_{#psi}"+arrow+"l^{+}l^{-}"
+title="Z_{\\psi}^\\prime"+arrow+l+"^{+}"+l+"^{-}"
 raw_database.append([title, [ 5.7, 5.8 , "6.2.5"], [-1. , 10. , "6.2.4"],  8, 1. ]) # ATLAS (6.2.5), HE (6.2.4)
-title="Z\'_{SSM}"+arrow+"t#bar{t}"
-raw_database.append([title, [-1. , -1. , "empty"], [ 6. ,  8. , "6.4.6"],  6, 1. ]) # HE (6.4.6)
-title="Z\'_{TC2}"+arrow+"t#bar{t}"
+title="Z_{SSM}^\\prime"+arrow+" t\\wwbar{t}"
+raw_database.append([title, [-1. , -1. , "empty"], [ 6.5,  8.5, "6.4.6"],  6, 1. ]) # HE (6.4.6)
+title="Z_{TC2}^\\prime"+arrow+" t\\wwbar{t}"
 raw_database.append([title, [-1. ,  4. , "6.2.3"], [ 8. , 10. , "6.4.6"],  5, 1. ]) # ATLAS (6.2.3)
-title="G_{RS}"+arrow+"t#bar{t}"
+title="G_{RS}"+arrow+" t\\wwbar{t}"
 raw_database.append([title, [ 5.7,  6.6, "6.2.2"], [ 9.4, 10.7, "6.2.2"],  4, 1. ]) # CMS (6.2.2)
-title="G_{RS}"+arrow+"W^{+}W^{-}"
+title="G_{RS}"+arrow+" W^{+}W^{-}"
 raw_database.append([title, [-1. , -1. , "empty"], [ 7. ,  8. , "6.4.6"],  3, 1. ]) # HE (6.4.6)
-title="HVT"+arrow+"VV"
+title="HVT"+arrow+" VV"
 raw_database.append([title, [ 5.8,  5. , "6.4.4"], [-1. , 11. , "6.4.4"],  2, 1. ]) # ATLAS (6.4.4)
 #spin 1/2
-title="Q*"+arrow+"jj"
+title="Q^{*}"+arrow+" jj"
 raw_database.append([title, [-1. , -1. , "empty"], [12. , 14. , "6.4.6"], 14, 0.5]) # HE (6.4.6)
-title="l*"+arrow+"l^{+}l^{-}#gamma"
+title=l+"^{*}"+arrow+l+"\\gamma"
 raw_database.append([title, [ 5.1,  5.8, "6.3.1"], [-1. , -1. , "empty"], 18, 0.5]) # CMS (6.3.1)
-title="Heavy #nu m_{N}"
-raw_database.append([title, [ 1.6,  3.2, "5.1.1"], [-1. , -1. , "empty"], 16, 0.5])
-title="Heavy #nu m_{E}"
-raw_database.append([title, [ 1.8,  3.8, "5.1.1"], [-1. , -1. , "empty"], 17, 0.5])
-title="Majorana #nu"+arrow+"llq#bar{q'}"
+#title="\\nu^{Heavy}~m_{N}"
+#raw_database.append([title, [ 1.6,  3.2, "5.1.1"], [-1. , -1. , "empty"], 16, 0.5])
+#title="\\nu^{Heavy}~m_{E}"
+#raw_database.append([title, [ 1.8,  3.8, "5.1.1"], [-1. , -1. , "empty"], 17, 0.5])
+title="\\nu^{Heavy}~(m_{N}=m_{E})"
+raw_database.append([title, [ 1.6,  2. , "5.1.1"], [ 3.2,  3.8, "5.1.1"], 17, 0.5])
+title="\\nu^{Majorana}"+arrow+l+" q\\wwbar{q^\\prime}"
 raw_database.append([title, [ 7.3,  8. , "5.1.3"], [11.5, 12.5, "5.1.3"], 15, 0.5]) # Lambda=M(N_e) or M(N_mu)
 #spin 0
-title="H^{++}H^{--}"+arrow+"#tau_{h}l^{#pm}l^{#mp}l^{#mp}"+space+"#scale[0.65]{(NH)}"
-raw_database.append([title, [ -1. ,0.66, "5.1.5"], [-1. , 1.38, "5.1.3"], 22, 0. ])
-title="H^{++}H^{--}"+arrow+"#tau_{h}l^{#pm}l^{#mp}l^{#mp}"+space+"#scale[0.65]{(IH)}"
-raw_database.append([title, [ -1. , 0.7, "5.1.5"], [-1. , 1.45, "5.1.3"], 23, 0. ])
-title="LQ"+arrow+"b#tau"
-raw_database.append([title, [ -1. , 1.5, "5.2.3"], [-1. ,  4. , "5.2.4"], 19, 0. ])
-title="LQ"+arrow+"t#mu"
+title="H^{++}H^{--}"+arrow+"\\tau_{h}\\,"+l+"^{\\pm}"+l+"^{\\mp}"+l+"^{\\mp}\\,(NH)"
+raw_database.append([title, [ -1. ,0.66, "5.1.1"], [-1. , 1.38, "5.1.1"], 22, 0. ])
+title="H^{++}H^{--}"+arrow+"\\tau_{h}\\,"+l+"^{\\pm}"+l+"^{\\mp}"+l+"^{\\mp}\\,(IH)"
+raw_database.append([title, [ -1. , 0.7, "5.1.1"], [-1. , 1.45, "5.1.1"], 23, 0. ])
+title="LQ (pair\\; prod.)"+arrow+" b\\,\\tau"
+#raw_database.append([title, [ -1. , 1.5, "5.2.3"], [-1. ,  4. , "5.2.4"], 19, 0. ]) # init David
+raw_database.append([title, [ 1.5 ,1.52, "5.2.3"], [ 2.9,  3.4, "5.2.4"], 19, 0. ]) # comments from Patrick Fox
+title="LQ"+arrow+" t\\,\\mu"
 raw_database.append([title, [ 1.7,  1.9, "5.2.1"], [-1. , -1. , "empty"], 20, 0. ])
-title="LQ"+arrow+"t#tau"
+title="LQ"+arrow+" t\\,\\tau"
 raw_database.append([title, [ 1.2,  1.4, "5.2.1"], [-1. , -1. , "empty"], 21, 0. ])
 
 #raw_database.append(["",   [ , , ], [ , , ], ,])
@@ -245,7 +248,7 @@ Text.DrawLatex(1., nAna+0.3, '#it{' + rightText +'}')
 
 leftText = "#font[22]{Model}"
 Text.SetTextSize(0.032)
-Text.DrawLatex(-5., nAna+0.3, '#it{' + leftText +'}')
+Text.DrawLatex(-5.7, nAna+0.3, '#it{' + leftText +'}')
 leftText = "#font[22]{spin}"
 Text.SetTextSize(0.032)
 Text.DrawLatex(-0.9, nAna+0.3, '#it{' + leftText +'}')
@@ -255,24 +258,39 @@ label=emu
 Text.DrawLatex(-4., -1.5, label)
 #
 for i_bin in range(nAna):
-  str_proc = '#scale[1.01]{#font[22]{'+process[i_bin]+'}}'
-  Text.DrawLatex(-5.7, i_bin+0.2, str_proc)
+  str_proc = process[i_bin]
+  if show_section==True:
+    Text.SetTextSize(0.0265)
+    Text.DrawLatex(-6.3, i_bin+0.2, str_proc)
+  else:
+    Text.SetTextSize(0.0225)
+    Text.DrawLatex(-5.8, i_bin+0.2, str_proc)
   str_proc = '#scale[0.9]{'+spin[i_bin]+'}'
+  Text.SetTextSize(0.03)
   Text.DrawLatex(-0.6, i_bin+0.2, str_proc)
 
 # write section right tab
 if show_section==True:
   str_section = "#font[22]{Section}"
-  Text.DrawLatex((the_max*1.1)+0.2, nAna+0.3, '#it{' + str_section +'}')
+  Text.DrawLatex((the_max*1.1)+0.2, nAna+1., '#it{' + str_section +'}')
+  Text.DrawLatex((the_max*1.1)+0.2, nAna+0.3, '#scale[0.58]{#it{#font[22]{HL/HE-LHC}}}')
   for i_bin in range(nAna):
     str_section = ""
-    if val_HL[i_bin][2]!="empty":
-      str_section+=val_HL[i_bin][2]
-    if val_HE[i_bin][2]!="empty" and val_HE[i_bin][2]!=val_HL[i_bin][2]:
-      if str_section!="" : str_section+=", "
-      str_section+=val_HE[i_bin][2]
+    #if val_HL[i_bin][2]!="empty":
+    #  str_section+=val_HL[i_bin][2]
+    #if val_HE[i_bin][2]!="empty" and val_HE[i_bin][2]!=val_HL[i_bin][2]:
+    #  if str_section!="" : str_section+=", "
+    #  str_section+=val_HE[i_bin][2]
+    if val_HL[i_bin][2]!="empty": str_section+=val_HL[i_bin][2]
+    else:                         str_section+="        "
+    str_section+="  "
+    if val_HE[i_bin][2]!="empty": str_section+=val_HE[i_bin][2]
+    else:                         str_section+="     "
     Text.SetTextSize(0.018)
     Text.DrawLatex((the_max*1.1)+0.2, i_bin+0.2, '#it{' + str_section +'}')
+  # arxiv
+  Text.DrawLatex((the_max*1.1)+0.1, -0.8, '#scale[1.1]{arXiv:}')
+  Text.DrawLatex((the_max*1.1)+0.1, -1.4, '#scale[1.1]{1812.07831}')
 
 canvas.RedrawAxis()
 canvas.RedrawAxis("g");
@@ -282,5 +300,5 @@ canvas.Modified()
 
 extra=""
 if show_section==True: extra="_with_sections"
-canvas.Print("summaryLimDisco_HL_HELHC"+extra+".pdf")
+canvas.Print("summaryLimDisco_HL_HELHC"+extra+".eps")
 
