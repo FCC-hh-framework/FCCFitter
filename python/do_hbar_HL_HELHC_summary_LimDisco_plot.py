@@ -46,7 +46,8 @@ raw_database.append([title, [-1  , -1. , "empty"], [ 1. ,  4. , "empty"], -1, 1.
 title="Z_{SSM}^\\prime"+arrow+l+"^{+}"+l+"^{-}"
 raw_database.append([title, [ 6.4, 6.5 , "6.2.5"], [13. , 12.5, "6.2.4"],  9, 1. ]) # ATLAS (6.2.5), HE (6.2.4)
 title="Z_{\\psi}^\\prime"+arrow+l+"^{+}"+l+"^{-}"
-raw_database.append([title, [ 5.7, 5.8 , "6.2.5"], [-1. , 10. , "6.2.4"],  8, 1. ]) # ATLAS (6.2.5), HE (6.2.4)
+raw_database.append([title, [ 5.7, 5.8 , "6.2.5"], [11.2, 11.4, "6.2.5"],  8, 1. ]) # ATLAS (6.2.5), ATLAS (6.2.5) Patrick Fox
+#raw_database.append([title, [ 5.7, 5.8 , "6.2.5"], [-1. , 10. , "6.2.4"],  8, 1. ]) # ATLAS (6.2.5), HE (6.2.4)
 title="Z_{SSM}^\\prime"+arrow+" t\\wwbar{t}"
 raw_database.append([title, [-1. , -1. , "empty"], [ 6.5,  8.5, "6.4.6"],  6, 1. ]) # HE (6.4.6)
 title="Z_{TC2}^\\prime"+arrow+" t\\wwbar{t}"
@@ -72,9 +73,9 @@ title="\\nu^{Majorana}"+arrow+l+" q\\wwbar{q^\\prime}"
 raw_database.append([title, [ 7.3,  8. , "5.1.3"], [11.5, 12.5, "5.1.3"], 15, 0.5]) # Lambda=M(N_e) or M(N_mu)
 #spin 0
 title="H^{++}H^{--}"+arrow+"\\tau_{h}\\,"+l+"^{\\pm}"+l+"^{\\mp}"+l+"^{\\mp}\\,(NH)"
-raw_database.append([title, [ -1. ,0.66, "5.1.1"], [-1. , 1.38, "5.1.1"], 22, 0. ])
+raw_database.append([title, [0.66, 0.83, "5.1.1"], [1.38, 1.65, "5.1.1"], 22, 0. ]) # fig 5.1.5 disco = 5 sigma bands , limit = 3 sigma bands -> from Patrick Fox
 title="H^{++}H^{--}"+arrow+"\\tau_{h}\\,"+l+"^{\\pm}"+l+"^{\\mp}"+l+"^{\\mp}\\,(IH)"
-raw_database.append([title, [ -1. , 0.7, "5.1.1"], [-1. , 1.45, "5.1.1"], 23, 0. ])
+raw_database.append([title, [ 0.7, 0.85, "5.1.1"], [1.45, 1.76, "5.1.1"], 23, 0. ])
 title="LQ (pair\\; prod.)"+arrow+" b\\,\\tau"
 #raw_database.append([title, [ -1. , 1.5, "5.2.3"], [-1. ,  4. , "5.2.4"], 19, 0. ]) # init David
 raw_database.append([title, [ 1.5 ,1.52, "5.2.3"], [ 2.9,  3.4, "5.2.4"], 19, 0. ]) # comments from Patrick Fox
@@ -255,7 +256,7 @@ Text.DrawLatex(-0.9, nAna+0.3, '#it{' + leftText +'}')
 
 # labels
 label=emu
-Text.DrawLatex(-4., -1.5, label)
+Text.DrawLatex(-5., -1., label)
 #
 for i_bin in range(nAna):
   str_proc = process[i_bin]
@@ -276,11 +277,6 @@ if show_section==True:
   Text.DrawLatex((the_max*1.1)+0.2, nAna+0.3, '#scale[0.58]{#it{#font[22]{HL/HE-LHC}}}')
   for i_bin in range(nAna):
     str_section = ""
-    #if val_HL[i_bin][2]!="empty":
-    #  str_section+=val_HL[i_bin][2]
-    #if val_HE[i_bin][2]!="empty" and val_HE[i_bin][2]!=val_HL[i_bin][2]:
-    #  if str_section!="" : str_section+=", "
-    #  str_section+=val_HE[i_bin][2]
     if val_HL[i_bin][2]!="empty": str_section+=val_HL[i_bin][2]
     else:                         str_section+="        "
     str_section+="  "
@@ -289,8 +285,9 @@ if show_section==True:
     Text.SetTextSize(0.018)
     Text.DrawLatex((the_max*1.1)+0.2, i_bin+0.2, '#it{' + str_section +'}')
   # arxiv
-  Text.DrawLatex((the_max*1.1)+0.1, -0.8, '#scale[1.1]{arXiv:}')
-  Text.DrawLatex((the_max*1.1)+0.1, -1.4, '#scale[1.1]{1812.07831}')
+  Text.DrawLatex((the_max*1.1)-0.55, -0.6, '#scale[0.95]{#color[4]{arXiv:1812.07831}}')
+else:
+  Text.DrawLatex(3., -2., '#scale[0.95]{#color[4]{arXiv:1812.07831}}')
 
 canvas.RedrawAxis()
 canvas.RedrawAxis("g");
