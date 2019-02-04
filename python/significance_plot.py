@@ -280,10 +280,11 @@ if __name__=="__main__":
       else :
         dicgraph[str(s)].Draw("C")
       lg_lbl=ana
-      lg_lbl=lg_lbl.replace('mumu','#mu#mu')
-      lg_lbl=lg_lbl.replace('ll','#it{ll}')
-      lg_lbl=lg_lbl.replace('bb','#it{bb}')
-      lg_lbl=lg_lbl.replace('qq','#it{qq}')
+      lg_lbl=lg_lbl.replace('ee','e^{+}e^{-}')
+      lg_lbl=lg_lbl.replace('mumu','#mu^{+}#mu^{-}')
+      lg_lbl=lg_lbl.replace('ll','#it{l^{+}l^{-}}  (#it{l}=e, #mu)')
+      lg_lbl=lg_lbl.replace('bb','#it{b\\wwbar{b}}')
+      lg_lbl=lg_lbl.replace('qq','#it{q\\wwbar{q}}')
       lg_lbl=lg_lbl.replace('5p','5%')
       lg_lbl=lg_lbl.replace('10p','10%')
       lg_lbl=lg_lbl.replace('15p','15%')
@@ -353,7 +354,7 @@ if __name__=="__main__":
     if the_ana=='qqSSM'         : plotname+="Z\'_{SSM} #rightarrow q#bar{q}"
     if the_ana=='ttTC2SSM'      : plotname+="Z\' #rightarrow t#bar{t}"
     if the_ana=='ttTC2'         : plotname+="Z\'_{TC2} #rightarrow t#bar{t}"
-    if the_ana=='ll'            : plotname+="Z\'_{SSM} #rightarrow l^{+}l^{-}"
+    if the_ana=='ll'            : plotname+="Z\'_{SSM} #rightarrow l^{+}l^{-} (l=e, #mu)"
     if the_ana=='ee'            : plotname+="Z\'_{SSM} #rightarrow e^{+}e^{-}"
     if the_ana=='mumu'          : plotname+="Z\'_{SSM} #rightarrow #mu^{+}#mu^{-}"
     if the_ana=='ww'            : plotname+="G_{RS} #rightarrow W^{+}W^{-}"
@@ -427,9 +428,9 @@ if __name__=="__main__":
       label.DrawLatex(0.18,0.83, "#bf{#it{#sqrt{s} = 100 TeV}}")
 
     label.SetTextSize(0.03)
-#CLEMENT
 #    label.DrawLatex(0.2,0.14, "Integrated luminosity versus mass for a 5 #sigma discovery")
-    label.DrawLatex(0.2,0.14, "5 #sigma discovery")
+    label.DrawLatex(0.4,0.14, "5 #sigma discovery")
+
     label.SetTextSize(0.036)
     if the_pos==left_pos : label.DrawLatex(the_pos,0.78, plotname)
     else                 : label.DrawLatex(the_pos+0.3,0.83, plotname)

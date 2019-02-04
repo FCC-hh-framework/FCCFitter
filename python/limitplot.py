@@ -636,7 +636,7 @@ if __name__=="__main__":
       label.DrawLatex(0.18,0.83, "#bf{#it{#sqrt{s} = 100 TeV}}")
 
       label.SetTextSize(0.035)
-      label.DrawLatex(0.18,0.78, "#bf{#it{   L = 30 ab^{-1}}}")
+      label.DrawLatex(0.18,0.78, "#bf{#it{L = 30 ab^{-1}}}")
 
     elif ops.name.find("helhc")>=0 :
       label.SetNDC()
@@ -650,7 +650,7 @@ if __name__=="__main__":
       label.DrawLatex(0.18,0.83, "#bf{#it{#sqrt{s} = 27 TeV}}")
 
       label.SetTextSize(0.035)
-      label.DrawLatex(0.18,0.78, "#bf{#it{   L = 15 ab^{-1}}}")
+      label.DrawLatex(0.18,0.78, "#bf{#it{L = 15 ab^{-1}}}")
 
     else :
       print 'name does not contains fcc or helhc'
