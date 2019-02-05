@@ -1,8 +1,8 @@
 #!/bin/bash
-#to run ./script/Zprime_tt/run_limits.sh fcc_v02 sel0
+#to run ./scripts/FCC/Zprime_tt/run_limits.sh fcc_v02/tagger_TC2_TRFbtag sel0
 myversion=$1
 sel=$2
-for ene in 10 15 20 25 30;
+for ene in 10 15 20 25 30 35;
 do
 
     ./myFit.exe h config_FCC/Zprime_tt/"$myversion"/Zprime_"$sel"_"$ene"TeV.config
