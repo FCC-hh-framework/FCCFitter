@@ -1,5 +1,5 @@
 #!/bin/bash
-#to run ./scripts/Zprime_ll/run_limits.sh fcc_v02 ee/mumu/ll
+#to run ./scripts/FCC/Zprime_ll/run_limits.sh fcc_v02 ee/mumu/ll
 myversion=$1
 lepton=$2
 for ene in 4 6 8 10 15 20 25 30 35 40 45 50;
