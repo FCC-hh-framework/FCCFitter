@@ -1,33 +1,79 @@
 import ROOT as r
 
-mode="27"
+#result="Disco"
+result="Limit"
+
+#mode="27"
 #mode="100"
-#mode="27_100"
+mode="27_100"
 
-#rsgww      = ["RSG #rightarrow W^{+}W^{-}",
-rsgww      = ["G_{RS} #rightarrow W^{+}W^{-}",
-              [5.,7.,8.],  #  27 TeV ->   1, 15, 100 ab-1
-              [15.,22.,26.]] # 100 TeV -> 2.5, 30, 100 ab-1
-qstar      = ["Q* #rightarrow jj",
-              [10.,12.,14.],
-              [36.,40.,43.]]
-zpttTC2    = ["Z\'_{TC2} #rightarrow t#bar{t}",
-              [6.,8.,10.],
-              [16.,23.,27.]]
-zpttSSM    = ["Z\'_{SSM} #rightarrow t#bar{t}",
-              [4.,6.,8.],
-              [10.,18.,22.]]
-zpll       = ["Z\'_{SSM} #rightarrow l^{+}l^{-}",
-              [10.,13.,15.],
-              [33.,43.,47.]]
-zptautau   = ["Z\'_{SSM} #rightarrow #tau^{+}#tau^{-}",
-              [3.,6.,9.],
-              [12.,18.,23.]]
-# f.a. = 1710.06363
-zpmumuflav = ["Z\'_{f.a.} #rightarrow #mu^{+}#mu^{-}",
-              [0.1,2.,5.],
-              [10.,19.,23.]]
+##############################################
+rsgww_disco      = ["G_{RS} #rightarrow W^{+}W^{-}",
+                    [5.,7.,8.],  #  27 TeV ->   1, 15, 100 ab-1
+                    [15.,22.,26.]] # 100 TeV -> 2.5, 30, 100 ab-1
+qstar_disco      = ["Q* #rightarrow jj",
+                    [10.,12.,14.],
+                    [36.,40.,43.]]
+zpttTC2_disco    = ["Z\'_{TC2} #rightarrow t#bar{t}",
+                    [6.,8.,10.],
+                    [16.,23.,27.]]
+zpttSSM_disco    = ["Z\'_{SSM} #rightarrow t#bar{t}",
+                    [4.,6.,8.],
+                    [10.,18.,22.]]
+zpll_disco       = ["Z\'_{SSM} #rightarrow l^{+}l^{-}",
+                    [10.,13.,15.],
+                    [33.,43.,47.]]
+zptautau_disco   = ["Z\'_{SSM} #rightarrow #tau^{+}#tau^{-}",
+                    [3.,6.,9.],
+                    [12.,18.,23.]]
+zpmumuflav_disco = ["Z\'_{f.a.} #rightarrow #mu^{+}#mu^{-}",
+                    [0.1,2.,5.],
+                    [10.,19.,23.]]
 
+##############################################
+rsgww_limit      = ["G_{RS} #rightarrow W^{+}W^{-}",
+                    [6.2,8.,10.1],  #  27 TeV ->   1, 15, 100 ab-1
+                    [20.5,28.,32.]] # 100 TeV -> 2.5, 30, 100 ab-1
+qstar_limit      = ["Q* #rightarrow jj",
+                    [11.5,14.,15.],
+                    [40.5,43.,44.5]]
+zpttTC2_limit    = ["Z\'_{TC2} #rightarrow t#bar{t}",
+                    [7.2,10.,11.5],
+                    [21.5,28.,31.]]
+zpttSSM_limit    = ["Z\'_{SSM} #rightarrow t#bar{t}",
+                    [5.3,8.4,10.3],
+                    [16.,24.,27.5]]
+zpll_limit       = ["Z\'_{SSM} #rightarrow l^{+}l^{-}",
+                    [10.,13.,14.2],
+                    [32.,40.,45.5]]
+zptautau_limit   = ["Z\'_{SSM} #rightarrow #tau^{+}#tau^{-}",
+                    [1.,6.,8.3],
+                    [11.,14.,21.]]
+zpmumuflav_limit = ["Z\'_{f.a.} #rightarrow #mu^{+}#mu^{-}",
+                    [0.,4.5,0.],
+                    [0.,26.,0.]]
+
+
+##############################################
+if result=="Disco" :
+  rsgww      = rsgww_disco
+  qstar      = qstar_disco
+  zpttTC2    = zpttTC2_disco
+  zpttSSM    = zpttSSM_disco
+  zpll       = zpll_disco
+  zptautau   = zptautau_disco
+  zpmumuflav = zpmumuflav_disco
+if result=="Limit" :
+  rsgww      = rsgww_limit
+  qstar      = qstar_limit
+  zpttTC2    = zpttTC2_limit
+  zpttSSM    = zpttSSM_limit
+  zpll       = zpll_limit
+  zptautau   = zptautau_limit
+  # f.a. = 1710.06363
+  zpmumuflav = zpmumuflav_limit
+
+##############################################
 database=[
 zptautau,
 #zpmumuflav,
@@ -120,9 +166,16 @@ leg.SetShadowColor(10)
 leg.SetTextSize(0.035)
 leg.SetTextFont(42)
 
+fact=1.1
+if result=="Limit" and mode=="27": fact=1.15
+
 if mode=="27" :
-  the_max=h_27[nMax].GetMaximum()
-  h_27[nMax].SetMaximum(the_max*1.1)
+  #the_max=h_27[nMax].GetMaximum()
+  the_max=0.
+  for i in range(len(h_27)) : the_max = max(the_max, h_27[i].GetMaximum())
+  if the_max==0. : the_max=1.
+  h_27[nMax].SetMinimum(0.)
+  h_27[nMax].SetMaximum(the_max*fact)
   h_27[nMax].SetTitle("")
   h_27[nMax].GetYaxis().SetTitleOffset(1.30)
   h_27[nMax].GetYaxis().SetTitle("Mass scale [TeV]")
@@ -138,8 +191,13 @@ if mode=="27" :
   leg.Draw("same")
 
 else :
-  the_max=h_100[nMax].GetMaximum()
-  h_100[nMax].SetMaximum(the_max*1.1)
+  #the_max=h_100[nMax].GetMaximum()
+  the_max=0.
+  for i in range(len(h_27))  : the_max = max(the_max, h_27[i].GetMaximum())
+  for i in range(len(h_100)) : the_max = max(the_max, h_100[i].GetMaximum())
+  if the_max==0. : the_max=1.
+  h_100[nMax].SetMinimum(0.)
+  h_100[nMax].SetMaximum(the_max*fact)
   h_100[nMax].SetTitle("")
   h_100[nMax].GetYaxis().SetTitleOffset(1.30)
   h_100[nMax].GetYaxis().SetTitle("Mass scale [TeV]")
@@ -158,9 +216,11 @@ else :
 
 Text = r.TLatex()
 Text.SetNDC()
-Text.SetTextAlign(31);
+Text.SetTextAlign(31)
 Text.SetTextSize(0.033)
-text = '5 #sigma Discovery'
+text = ''
+if result=="Disco" : text = '5 #sigma Discovery'
+if result=="Limit" : text = '95% CL Limit'
 Text.DrawLatex(0.95, 0.72, text)
 
 leftText27      = "HE-LHC Simulation (Delphes), #sqrt{s} = 27 TeV"
@@ -181,5 +241,5 @@ canvas.Update()
 extra=""
 if mode=="27"  : extra="_onlyHELHC"
 if mode=="100" : extra="_onlyFCChh"
-canvas.Print("summaryDisco"+extra+".pdf")
+canvas.Print("summary"+result+extra+".pdf")
 

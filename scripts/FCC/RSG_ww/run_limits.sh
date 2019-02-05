@@ -1,5 +1,5 @@
 #!/bin/bash
-#to run ./script/RSG_ww/run_limits.sh fcc_v02 sel0
+#to run ./scripts/FCC/RSG_ww/run_limits.sh fcc_v02/tagger sel0
 myversion=$1
 sel=$2
 for ene in 10 15 20 25 30;
