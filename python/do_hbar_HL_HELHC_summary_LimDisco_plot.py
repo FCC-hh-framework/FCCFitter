@@ -57,7 +57,7 @@ raw_database.append([title, [ 5.7,  6.6, "6.2.2"], [ 9.4, 10.7, "6.2.2"],  4, 1.
 title="G_{RS}"+arrow+" W^{+}W^{-}"
 raw_database.append([title, [-1. , -1. , "empty"], [ 7. ,  8. , "6.4.6"],  3, 1. ]) # HE (6.4.6)
 title="HVT"+arrow+" VV"
-raw_database.append([title, [ 5.8,  5. , "6.4.4"], [-1. , 11. , "6.4.4"],  2, 1. ]) # ATLAS (6.4.4)
+raw_database.append([title, [ 3.5,  5. , "6.4.4"], [-1. , 11. , "6.4.4"],  2, 1. ]) # ATLAS (6.4.4)
 #spin 1/2
 title="Q^{*}"+arrow+" jj"
 raw_database.append([title, [-1. , -1. , "empty"], [12. , 14. , "6.4.6"], 14, 0.5]) # HE (6.4.6)
